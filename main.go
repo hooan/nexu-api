@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"nexu-api/handlers"
+	"nexu-api/repositories"
 	"os"
 
 	"database/sql"
@@ -47,6 +48,9 @@ func main() {
 	if err := m.Up(); err != nil && err != migrate.ErrNoChange {
 		log.Fatalf("Error running migrations: %v", err)
 	}
+
+	// Initialize the repository with the database connection
+	repositories.InitDB(db)
 
 	r := mux.NewRouter()
 

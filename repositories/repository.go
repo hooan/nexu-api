@@ -2,33 +2,16 @@ package repositories
 
 import (
 	"database/sql"
-	"log"
 	"nexu-api/models"
-	"os"
 
-	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
 
 var db *sql.DB
 
-func init() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-
-	dsn := os.Getenv("DATABASE_URL")
-	var errDB error
-	db, errDB = sql.Open("postgres", dsn)
-	if errDB != nil {
-		log.Fatal(errDB)
-	}
-
-	if errDB = db.Ping(); errDB != nil {
-		log.Fatal(errDB)
-	}
-
+// InitDB initializes the database connection
+func InitDB(database *sql.DB) {
+	db = database
 }
 
 type ModelRepository interface {
