@@ -1,5 +1,7 @@
 # Nexu Backend Coding Exercise
 
+
+
 ## Overview
 ###API Endpoints
 
@@ -11,6 +13,20 @@
                               PUT    /models/:id
                               GET    /models
 ```
+### Data
+The project uses migrations to create the database structure, for this it is required to provide an environment variable. 
+The database structure is created to preserve consistency and reduce redundancy. 
+
+With the information provided in the .json file, two tables were created, one for Brands and one for Models, which are located in the migrations folder and the scripts for their creation. 
+
+When running the project these will be created automatically. 
+Then you can run the following command to populate the tables with the information from the .json file
+### Generate data 
+```script
+go run .\services\data-file.go
+```
+
+##Instructions
 
 ###Build
 ```script
@@ -18,14 +34,12 @@ go build
 ```
 
 ###Run 
-
 ```bash
 go run .\main.go
 ```
 
 ###Test 
 To run the tests, use:
-
 ```bash
 go test ./.. -v
 ```
