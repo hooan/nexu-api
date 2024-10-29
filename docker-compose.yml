@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_docker
+    ports:
+      - 5432:5432
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - database_docker:/var/lib/postgresql/data
+      - ./dbshell:/docker-entrypoint-initdb.d/
+    networks:
+      - fullstack
+  app:
+    container_name: app_docker
+    build: .
+    ports:
+      - 8080:8080
+    restart: always
+    volumes:
+      - app_volume:/usr/src/app/
+    depends_on:
+      - postgres
+    networks:
+      - fullstack
+
+volumes:
+  database_docker:
+  app_volume:
+
+networks:
+  fullstack:
+    driver: bridge
